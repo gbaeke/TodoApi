@@ -1,0 +1,52 @@
+replicaCount: 2
+
+image:
+  repository: gbaeke/dotnetdemo
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+nameOverride: ""
+fullnameOverride: "todo"
+
+serviceAccount:
+  create: false
+
+podAnnotations: {}
+
+podSecurityContext: 
+  runAsUser: 10000
+  runAsNonRoot: true
+
+securityContext:
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - all
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: todo.domain.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: 
+  - hosts:
+    - todo.domain.com
+
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "50m"
+  limits:
+    memory: "64Mi"
+    cpu: "50m"
+
+autoscaling:
+  enabled: false
