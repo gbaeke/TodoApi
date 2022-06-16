@@ -20,7 +20,7 @@ spec:
       containers:
         - name: todo-app
           # do not use latest in production
-          image: gbaeke/dotnetdemo:latest
+          image: gbaeke/dotnetdemo:1.0.0
           imagePullPolicy: Always
           securityContext:
             readOnlyRootFilesystem: true
